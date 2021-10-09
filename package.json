@@ -13,9 +13,6 @@
     "type": "git",
     "url": "git+https://github.com/HashlandGamefi/hashland-sdk.git"
   },
-  "files": [
-    "dist"
-  ],
   "author": "HASHLAND-TEAM",
   "license": "MIT",
   "bugs": {
