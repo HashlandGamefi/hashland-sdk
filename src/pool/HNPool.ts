@@ -1,6 +1,6 @@
 import { ethers } from 'ethers';
 import { abi } from 'hashland-core/artifacts/contracts/pool/HNPool.sol/HNPool.json'
-import { network, contract } from '../../constant';
+import { network, contract } from '../constant';
 
 const provider = new ethers.providers.JsonRpcProvider(network());
 const signer = provider.getSigner();
