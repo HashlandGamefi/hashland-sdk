@@ -8,10 +8,11 @@ const signer = provider.getSigner();
 const hnPool = new ethers.Contract(contract().HNPool, abi);
 const hnPoolWithSigner = hnPool.connect(signer);
 
-export async function stakes(tokenId: number) {
-  return await hnPool.stakes(tokenId);
-}
-
-export async function deposit(hnIds: number[]) {
-  return await hnPoolWithSigner.deposit(hnIds);
+export const hnPoolContract = {
+  stakes: async function (tokenId: number) {
+    return await hnPool.stakes(tokenId);
+  },
+  deposit: async function (hnIds: number[]) {
+    return await hnPoolWithSigner.deposit(hnIds);
+  }
 }

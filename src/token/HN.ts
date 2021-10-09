@@ -8,10 +8,11 @@ const signer = provider.getSigner();
 const hn = new ethers.Contract(token().HN, abi);
 const hnWithSigner = hn.connect(signer);
 
-export async function level(hnId: number) {
-  return await hn.level(hnId);
-}
-
-export async function transferBatch(to: string, hnIds: number[]) {
-  return await hnWithSigner.transferBatch(to, hnIds);
+export const hnContract = {
+  level: async function (hnId: number) {
+    return await hn.level(hnId);
+  },
+  transferBatch: async function (to: string, hnIds: number[]) {
+    return await hnWithSigner.transferBatch(to, hnIds);
+  }
 }
