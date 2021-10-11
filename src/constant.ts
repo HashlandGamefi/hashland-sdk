@@ -1,18 +1,13 @@
 import { ethers, utils } from 'ethers';
 
-let provider: ethers.providers.Web3Provider;
-let signer: ethers.providers.JsonRpcSigner;
-
 export const util = utils;
 
 export function getProvider() {
-  if (!provider) provider = new ethers.providers.Web3Provider((window as any).ethereum);
-  return provider;
+  return new ethers.providers.Web3Provider((window as any).ethereum);
 }
 
 export function getSigner() {
-  if (!signer) signer = getProvider().getSigner();
-  return signer;
+  return getProvider().getSigner();
 }
 
 export function token() {
