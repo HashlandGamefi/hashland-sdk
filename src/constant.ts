@@ -1,3 +1,9 @@
+import { ethers, utils } from 'ethers';
+
+export const provider = new ethers.providers.Web3Provider((window as any).ethereum);
+export const signer = provider.getSigner();
+export const util = utils;
+
 export const token = () => {
   if (process.env.NODE_ENV === 'production') {
     return {
