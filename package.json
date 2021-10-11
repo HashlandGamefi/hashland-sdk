@@ -1,10 +1,9 @@
 {
   "name": "hashland-sdk",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.ts",
   "scripts": {
-    "publish": "tsdx build && rimraf -- prod && cpr -- dist prod",
     "build": "tsdx build",
     "start": "tsdx watch",
     "test": "tsdx test"
@@ -21,11 +20,9 @@
   "homepage": "https://github.com/HashlandGamefi/hashland-sdk#readme",
   "dependencies": {
     "ethers": "^5.4.7",
-    "hashland-core": "^1.0.1"
+    "hashland-core": "^1.0.2"
   },
   "devDependencies": {
-    "cpr": "^3.0.1",
-    "rimraf": "^3.0.2",
     "tsdx": "^0.14.1"
   }
 }
