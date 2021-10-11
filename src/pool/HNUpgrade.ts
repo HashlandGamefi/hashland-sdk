@@ -1,9 +1,8 @@
 import { ethers } from 'ethers';
 import { HNUpgrade__factory } from 'hashland-core/typechain'
-import { network, contract } from '../constant';
+import { contract } from '../constant';
 
-const provider = new ethers.providers.JsonRpcProvider(network());
+const provider = new ethers.providers.Web3Provider((window as any).ethereum);
 const signer = provider.getSigner();
 
-export const hnUpgrade = HNUpgrade__factory.connect(contract().HNUpgrade, provider);
-export const hnUpgradeWithSigner = hnUpgrade.connect(signer);
+export const hnUpgrade = HNUpgrade__factory.connect(contract().HNUpgrade, signer);

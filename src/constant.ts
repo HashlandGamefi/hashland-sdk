@@ -29,11 +29,3 @@ export const contract = () => {
     };
   }
 };
-
-export const network = () => {
-  if (process.env.NODE_ENV === 'production') {
-    return 'https://bsc-dataseed.binance.org/';
-  } else {
-    return 'https://data-seed-prebsc-2-s1.binance.org:8545/';
-  }
-}

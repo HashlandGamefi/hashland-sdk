@@ -1,9 +1,8 @@
 import { ethers } from 'ethers';
 import { HNPool__factory } from 'hashland-core/typechain'
-import { network, contract } from '../constant';
+import { contract } from '../constant';
 
-const provider = new ethers.providers.JsonRpcProvider(network());
+const provider = new ethers.providers.Web3Provider((window as any).ethereum);
 const signer = provider.getSigner();
 
-export const hnPool = HNPool__factory.connect(contract().HNPool, provider);
-export const hnPoolWithSigner = hnPool.connect(signer);
+export const hnPool = HNPool__factory.connect(contract().HNPool, signer);
