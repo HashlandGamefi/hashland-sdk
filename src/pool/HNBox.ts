@@ -1,4 +1,6 @@
 import { HNBox__factory } from 'hashland-core/typechain'
-import { signer, contract } from '../constant';
+import { getProvider, getSigner, contract } from '../constant';
 
-export const hnBox = HNBox__factory.connect(contract().HNBox, signer);
+export function hnBox() {
+  return HNBox__factory.connect(contract().HNBox, getProvider()).connect(getSigner());
+}

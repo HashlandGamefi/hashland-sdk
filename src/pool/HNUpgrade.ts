@@ -1,4 +1,6 @@
 import { HNUpgrade__factory } from 'hashland-core/typechain'
-import { signer, contract } from '../constant';
+import { getProvider, getSigner, contract } from '../constant';
 
-export const hnUpgrade = HNUpgrade__factory.connect(contract().HNUpgrade, signer);
+export function hnUpgrade() {
+  return HNUpgrade__factory.connect(contract().HNUpgrade, getProvider()).connect(getSigner());
+}

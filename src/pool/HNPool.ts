@@ -1,4 +1,6 @@
 import { HNPool__factory } from 'hashland-core/typechain'
-import { signer, contract } from '../constant';
+import { getProvider, getSigner, contract } from '../constant';
 
-export const hnPool = HNPool__factory.connect(contract().HNPool, signer);
+export function hnPool() {
+  return HNPool__factory.connect(contract().HNPool, getProvider()).connect(getSigner());
+}
