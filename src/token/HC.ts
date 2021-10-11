@@ -5,4 +5,5 @@ import { network, token } from '../constant';
 const provider = new ethers.providers.JsonRpcProvider(network());
 const signer = provider.getSigner();
 
-export const hc = HC__factory.connect(token().HC, signer);
+export const hc = HC__factory.connect(token().HC, provider);
+export const hcWithSigner = hc.connect(signer);

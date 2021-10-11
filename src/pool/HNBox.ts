@@ -5,4 +5,5 @@ import { network, contract } from '../constant';
 const provider = new ethers.providers.JsonRpcProvider(network());
 const signer = provider.getSigner();
 
-export const hnBox = HNBox__factory.connect(contract().HNBox, signer);
+export const hnBox = HNBox__factory.connect(contract().HNBox, provider);
+export const hnBoxWithSigner = hnBox.connect(signer);
