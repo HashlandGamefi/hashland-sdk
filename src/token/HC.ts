@@ -1,4 +1,6 @@
 import { HC__factory } from 'hashland-core/typechain'
-import { signer, token } from '../constant';
+import { getProvider, getSigner, token } from '../constant';
 
-export const hc = HC__factory.connect(token().HC, signer);
+export function hc() {
+  return HC__factory.connect(token().HC, getProvider()).connect(getSigner());
+}

@@ -1,10 +1,21 @@
 import { ethers, utils } from 'ethers';
 
-export const provider = new ethers.providers.Web3Provider((window as any).ethereum);
-export const signer = provider.getSigner();
+let provider: ethers.providers.Web3Provider;
+let signer: ethers.providers.JsonRpcSigner;
+
 export const util = utils;
 
-export const token = () => {
+export function getProvider() {
+  if (!provider) provider = new ethers.providers.Web3Provider((window as any).ethereum);
+  return provider;
+}
+
+export function getSigner() {
+  if (!signer) signer = getProvider().getSigner();
+  return signer;
+}
+
+export function token() {
   if (process.env.NODE_ENV === 'production') {
     return {
       HC: '0x0000000000000000000000000000000000000000',
@@ -20,7 +31,7 @@ export const token = () => {
   }
 };
 
-export const contract = () => {
+export function contract() {
   if (process.env.NODE_ENV === 'production') {
     return {
       HNBox: '0x0000000000000000000000000000000000000000',

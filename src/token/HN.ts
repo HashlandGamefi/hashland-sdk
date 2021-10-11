@@ -1,4 +1,7 @@
+import { ethers } from 'ethers';
 import { HN__factory } from 'hashland-core/typechain'
-import { signer, token } from '../constant';
+import { getProvider, getSigner, token } from '../constant';
 
-export const hn = HN__factory.connect(token().HN, signer);
+export function hn() {
+  return HN__factory.connect(token().HN, getProvider()).connect(getSigner());
+}
