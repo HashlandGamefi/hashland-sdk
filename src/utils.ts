@@ -1,5 +1,5 @@
 import { ethers, utils } from 'ethers';
-import { network } from './constant';
+import { token, network } from './constant';
 
 let providers: ethers.providers.JsonRpcProvider;
 let signer: ethers.providers.JsonRpcSigner;
@@ -17,6 +17,20 @@ export const wallet = {
     return await (window as any).ethereum.request({
       method: 'wallet_addEthereumChain',
       params: [network()]
+    });
+  },
+  addHC: async (img: string) => {
+    return await (window as any).ethereum.request({
+      method: 'wallet_watchAsset',
+      params: {
+        type: 'ERC20',
+        options: {
+          address: token().HC,
+          symbol: 'HC',
+          decimals: 18,
+          image: img,
+        },
+      },
     });
   },
   onAccountChanged: (handleAccountsChanged: any) => {
