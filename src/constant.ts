@@ -33,13 +33,13 @@ export function contract() {
 export function network() {
   if (process.env.NODE_ENV === 'production') {
     return {
-      chainId: '56',
+      chainId: '0x38',
       chainName: 'BSC-Mainnet',
       rpcUrls: ['https://bsc-dataseed.binance.org/']
     };
   } else {
     return {
-      chainId: '97',
+      chainId: '0x61',
       chainName: 'BSC-Testnet',
       rpcUrls: ['https://data-seed-prebsc-2-s1.binance.org:8545/']
     };
