@@ -24,7 +24,7 @@ export function contract() {
   } else {
     return {
       HNBox: '0xe4f1685585FfdCA3a60e809984CAd4A1ECCc5620',
-      HNPool: '0x4a70Ba0C1309fDeF78f6adDf9785eF1D90AaD8b1',
+      HNPool: '0xEA46A239cad287138b653E7D4748d9BB1832f175',
       HNUpgrade: '0x95d015042cAdEAEF26e9F3b770ce390164E343a9',
     };
   }
