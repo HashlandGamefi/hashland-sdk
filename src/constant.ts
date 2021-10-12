@@ -1,20 +1,3 @@
-import { ethers, utils } from 'ethers';
-
-let providers: ethers.providers.JsonRpcProvider;
-let signer: ethers.providers.JsonRpcSigner;
-
-export const util = utils;
-
-export function getProvider() {
-  if (!providers) providers = new ethers.providers.JsonRpcProvider(network());
-  return providers;
-}
-
-export function getSigner() {
-  if (!signer) signer = getProvider().getSigner();
-  return signer;
-}
-
 export function token() {
   if (process.env.NODE_ENV === 'production') {
     return {
@@ -49,8 +32,16 @@ export function contract() {
 
 export function network() {
   if (process.env.NODE_ENV === 'production') {
-    return 'https://bsc-dataseed.binance.org/';
+    return {
+      chainId: '56',
+      chainName: 'BSC-Mainnet',
+      rpcUrls: ['https://bsc-dataseed.binance.org/']
+    };
   } else {
-    return 'https://data-seed-prebsc-2-s1.binance.org:8545/';
+    return {
+      chainId: '97',
+      chainName: 'BSC-Testnet',
+      rpcUrls: ['https://data-seed-prebsc-2-s1.binance.org:8545/']
+    };
   }
 };
