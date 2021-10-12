@@ -1,12 +1,12 @@
 import { ethers, utils } from 'ethers';
 
-let providers: ethers.providers.Web3Provider;
+let providers: ethers.providers.JsonRpcProvider;
 let signer: ethers.providers.JsonRpcSigner;
 
 export const util = utils;
 
 export function getProvider() {
-  if (!providers) providers = new ethers.providers.Web3Provider((window as any).ethereum);
+  if (!providers) providers = new ethers.providers.JsonRpcProvider(network());
   return providers;
 }
 
@@ -44,5 +44,13 @@ export function contract() {
       HNPool: '0x4a70Ba0C1309fDeF78f6adDf9785eF1D90AaD8b1',
       HNUpgrade: '0x95d015042cAdEAEF26e9F3b770ce390164E343a9',
     };
+  }
+};
+
+export function network() {
+  if (process.env.NODE_ENV === 'production') {
+    return 'https://bsc-dataseed.binance.org/';
+  } else {
+    return 'https://data-seed-prebsc-2-s1.binance.org:8545/';
   }
 };
