@@ -1,7 +1,7 @@
-import { HNPool__factory, HNPool } from 'hashland-core/typechain'
+import { HNPool__factory } from 'hashland-core/typechain'
 import { getProvider } from '../utils';
 import { contract } from '../constant';
 
-export function hnPool(): HNPool {
+export function hnPool() {
   return HNPool__factory.connect(contract().HNPool, getProvider());
 }

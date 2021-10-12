@@ -1,8 +1,6 @@
 import { ethers, utils } from 'ethers';
 import { network } from './constant';
 
-let account: string;
-let chainId: number;
 let providers: ethers.providers.JsonRpcProvider;
 let signer: ethers.providers.JsonRpcSigner;
 
@@ -10,15 +8,13 @@ export const util = utils;
 
 export const wallet = {
   getAccount: async () => {
-    if (!account) account = (await (window as any).ethereum.request({ method: 'eth_requestAccounts' }))[0];
-    return account;
+    return (await (window as any).ethereum.request({ method: 'eth_requestAccounts' }))[0];
   },
   getChainId: async () => {
-    if (!chainId) chainId = await (window as any).ethereum.request({ method: 'eth_chainId' });
-    return chainId;
+    return await (window as any).ethereum.request({ method: 'eth_chainId' });
   },
   addChain: async () => {
-    await (window as any).ethereum.request({
+    return await (window as any).ethereum.request({
       method: 'wallet_addEthereumChain',
       params: [network()]
     });
