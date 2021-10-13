@@ -2,12 +2,13 @@ import { ethers, utils } from 'ethers';
 import { token, network } from './constant';
 
 let providers: ethers.providers.JsonRpcProvider;
+let signer: ethers.providers.JsonRpcSigner;
 
 export const util = utils;
 
 export const wallet = {
   getAccount: async () => {
-    return (await (window as any).ethereum.request({ method: 'eth_requestAccounts' }))[0];
+    return await (window as any).ethereum.request({ method: 'eth_requestAccounts' });
   },
   getChainId: async () => {
     return await (window as any).ethereum.request({ method: 'eth_chainId' });
@@ -46,5 +47,6 @@ export function getProvider() {
 }
 
 export function getSigner() {
-  return new ethers.providers.Web3Provider((window as any).ethereum).getSigner();
+  if (!signer) signer = new ethers.providers.Web3Provider((window as any).ethereum).getSigner();
+  return signer;
 }
