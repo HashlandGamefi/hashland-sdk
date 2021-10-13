@@ -2,7 +2,6 @@ import { ethers, utils } from 'ethers';
 import { token, network } from './constant';
 
 let providers: ethers.providers.JsonRpcProvider;
-let signer: ethers.providers.JsonRpcSigner;
 
 export const util = utils;
 
@@ -47,6 +46,5 @@ export function getProvider() {
 }
 
 export function getSigner() {
-  if (!signer) signer = new ethers.providers.Web3Provider((window as any).ethereum).getSigner();
-  return signer;
+  return new ethers.providers.Web3Provider((window as any).ethereum).getSigner();
 }
