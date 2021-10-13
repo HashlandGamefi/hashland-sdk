@@ -47,6 +47,6 @@ export function getProvider() {
 }
 
 export function getSigner() {
-  if (!signer) signer = getProvider().getSigner();
+  if (!signer) signer = new ethers.providers.Web3Provider((window as any).ethereum).getSigner();
   return signer;
 }
