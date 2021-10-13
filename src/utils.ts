@@ -1,10 +1,11 @@
-import { ethers, utils } from 'ethers';
+import { ethers, utils, constants } from 'ethers';
 import { token, network } from './constant';
 
 let providers: ethers.providers.JsonRpcProvider;
 let signer: ethers.providers.JsonRpcSigner;
 
 export const util = utils;
+export const constant = constants;
 
 export const wallet = {
   getAccount: async () => {
