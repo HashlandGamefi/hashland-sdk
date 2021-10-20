@@ -1,4 +1,4 @@
-import { ethers, utils, constants } from 'ethers';
+import { ethers, utils, constants, BigNumber } from 'ethers';
 import { token, network } from './constant';
 
 let providers: any;
@@ -50,4 +50,8 @@ export function getProvider() {
 export function getSigner() {
   if (!signer) signer = new ethers.providers.Web3Provider((window as any).ethereum).getSigner();
   return signer;
+}
+
+export function getRandomNumber(id: number, slot: string, base: number, range: number) {
+  return BigNumber.from(utils.solidityKeccak256(['uint256', 'string'], [id, slot])).mod(range).add(base).toNumber();
 }
