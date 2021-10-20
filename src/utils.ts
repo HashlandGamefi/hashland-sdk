@@ -56,7 +56,7 @@ export function getRandomNumber(hnId: number, slot: string, base: number, range:
   return BigNumber.from(utils.solidityKeccak256(['uint256', 'string'], [hnId, slot])).mod(range).add(base).toNumber();
 }
 
-export function getHnImg(hnId: number, level: number) {
+export function getHnImg(hnId: number, level: number, preUrl?: string) {
   const canvas = document.createElement('canvas');
   canvas.width = 1024;
   canvas.height = 1024;
@@ -64,17 +64,17 @@ export function getHnImg(hnId: number, level: number) {
   const context = canvas.getContext('2d') as CanvasRenderingContext2D;
 
   const bg = new Image();
-  bg.src = `./img/bg/${level}.png`;
+  bg.src = `${preUrl}/img/bg/${level}.png`;
 
   const hnClass = getRandomNumber(hnId, 'class', 1, 4);
   const hero = new Image();
-  hero.src = `./img/class${hnClass}/hero.png`;
+  hero.src = `${preUrl}/img/class${hnClass}/hero.png`;
 
   const item1 = new Image();
-  item1.src = `./img/class${hnClass}/item1/${getRandomNumber(hnId, 'item1', 1, 10)}.png`;
+  item1.src = `${preUrl}/img/class${hnClass}/item1/${getRandomNumber(hnId, 'item1', 1, 10)}.png`;
 
   const item2 = new Image();
-  item2.src = `./img/class${hnClass}/item2/${getRandomNumber(hnId, 'item2', 1, 10)}.png`;
+  item2.src = `${preUrl}/img/class${hnClass}/item2/${getRandomNumber(hnId, 'item2', 1, 10)}.png`;
 
   context.drawImage(bg, 0, 0);
   context.drawImage(hero, 0, 0);
