@@ -1,7 +1,7 @@
 import { ethers, utils, constants } from 'ethers';
 import { token, network } from './constant';
 
-let providers: ethers.providers.JsonRpcProvider;
+let providers: any;
 let signer: ethers.providers.JsonRpcSigner;
 
 export const util = utils;
