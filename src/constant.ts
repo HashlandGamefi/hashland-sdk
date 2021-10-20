@@ -7,7 +7,7 @@ export function token() {
     }
   } else {
     return {
-      HC: '0x33288a521B768A3F47445c6cdc6696f4a3Cae29b',
+      HC: '0x9c41df7F2EE04342De4d1c66676E551a362B0c71',
       HN: '0x0cfca9fa7ba49f174acc0e74e0a06460584cea58',
       BTC: '0xa10da6692a2881dd9824d189C43053d22A2D5195',
     };
@@ -26,10 +26,10 @@ export function contract() {
   } else {
     return {
       HNBox: '0xc551b39d6a03998e4d7cc2166f28a48c500362cb',
-      HNPool: '0xa425373b97bcaeaec9a58d867149ee5680badecf',
-      HNUpgrade: '0x271c9bb899d2b5d985f5fb649fcd26fdcf0c3d6a',
-      HNMarket: '0xb5b52fdb724edf16254962931cb71ccc69938083',
-      InvitePool: '0x7A21B36ECc87702e5cD08d4D1d58Ec8b11e7E235',
+      HNPool: '0x8b52E8f045A728f283C745EeBe7567740c9C821d',
+      HNUpgrade: '0xF0369720d9bb984D8C5242B223aDb3C8dABA2D31',
+      HNMarket: '0x6d1aD8a2A42F5a35Cf88D8966105aa2D9c752f13',
+      InvitePool: '0x13Bd71c9FAf1bF2AAB0080b94A83A2159D3c6647',
     };
   }
 };
