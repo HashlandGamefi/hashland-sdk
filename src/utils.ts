@@ -57,6 +57,8 @@ export function getRandomNumber(hnId: number, slot: string, base: number, range:
 }
 
 export function getHnImg(hnId: number, level: number, preUrl?: string) {
+  const hnClass = getRandomNumber(hnId, 'class', 1, 4);
+
   const canvas = document.createElement('canvas');
   canvas.width = 1024;
   canvas.height = 1024;
@@ -66,7 +68,9 @@ export function getHnImg(hnId: number, level: number, preUrl?: string) {
   const bg = new Image();
   bg.src = `${preUrl}/img/bg/${level}.png`;
 
-  const hnClass = getRandomNumber(hnId, 'class', 1, 4);
+  const bgEffect = new Image();
+  bgEffect.src = `${preUrl}/img/class${hnClass}/effect/bg/${level}.png`;
+
   const hero = new Image();
   hero.src = `${preUrl}/img/class${hnClass}/hero.png`;
 
@@ -76,10 +80,19 @@ export function getHnImg(hnId: number, level: number, preUrl?: string) {
   const item2 = new Image();
   item2.src = `${preUrl}/img/class${hnClass}/item2/${getRandomNumber(hnId, 'item2', 1, 10)}.png`;
 
+  const heroEffect = new Image();
+  heroEffect.src = `${preUrl}/img/class${hnClass}/effect/hero/${level}.png`;
+
+  const info = new Image();
+  info.src = `${preUrl}/img/class${hnClass}/info.png`;
+
   context.drawImage(bg, 0, 0);
+  context.drawImage(bgEffect, 0, 0);
   context.drawImage(hero, 0, 0);
   context.drawImage(item1, 0, 0);
   context.drawImage(item2, 0, 0);
+  context.drawImage(heroEffect, 0, 0);
+  context.drawImage(info, 0, 0);
 
   return canvas.toDataURL();
 }
