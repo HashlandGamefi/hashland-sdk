@@ -56,7 +56,7 @@ export function getRandomNumber(hnId: number, slot: string, base: number, range:
   return BigNumber.from(utils.solidityKeccak256(['uint256', 'string'], [hnId, slot])).mod(range).add(base).toNumber();
 }
 
-export async function getHnImg(hnId: number, level: number, preUrl?: string) {
+export async function getHnImg(hnId: number, level: number, preUrl?: string): Promise<string> {
   const hnClass = getRandomNumber(hnId, 'class', 1, 4);
 
   const canvas = document.createElement('canvas');
@@ -76,18 +76,18 @@ export async function getHnImg(hnId: number, level: number, preUrl?: string) {
   ];
 
   let count = 0;
-  sources.map(obj => {
-    const img = new Image();
-    img.src = obj.url;
-    img.onload = () => {
-      obj.img = img;
-      if (++count == 7) {
-        for (let i = 0; i < sources.length; i++) {
-          context.drawImage(sources[i].img, 0, 0);
+  return new Promise(resolve => {
+    sources.map(obj => {
+      obj.img = new Image();
+      obj.img.src = obj.url;
+      obj.img.onload = () => {
+        if (++count == 7) {
+          sources.map(item => {
+            context.drawImage(item.img, 0, 0);
+          });
+          resolve(canvas.toDataURL());
         }
-      }
-    };
+      };
+    });
   });
-
-  return canvas.toDataURL();
 }
