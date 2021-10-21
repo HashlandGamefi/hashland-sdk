@@ -56,7 +56,7 @@ export function getRandomNumber(hnId: number, slot: string, base: number, range:
   return BigNumber.from(utils.solidityKeccak256(['uint256', 'string'], [hnId, slot])).mod(range).add(base).toNumber();
 }
 
-export function getHnImg(hnId: number, level: number, preUrl?: string) {
+export async function getHnImg(hnId: number, level: number, preUrl?: string) {
   const hnClass = getRandomNumber(hnId, 'class', 1, 4);
 
   const canvas = document.createElement('canvas');
@@ -65,34 +65,29 @@ export function getHnImg(hnId: number, level: number, preUrl?: string) {
 
   const context = canvas.getContext('2d') as CanvasRenderingContext2D;
 
-  const bg = new Image();
-  bg.src = `${preUrl}/img/bg/${level}.png`;
+  const sources: any[] = [
+    { url: `${preUrl}/img/bg/${level}.png` },
+    { url: `${preUrl}/img/class${hnClass}/effect/bg/${level}.png` },
+    { url: `${preUrl}/img/class${hnClass}/hero.png` },
+    { url: `${preUrl}/img/class${hnClass}/item1/${getRandomNumber(hnId, 'item1', 1, 10)}.png` },
+    { url: `${preUrl}/img/class${hnClass}/item2/${getRandomNumber(hnId, 'item2', 1, 10)}.png` },
+    { url: `${preUrl}/img/class${hnClass}/effect/hero/${level}.png` },
+    { url: `${preUrl}/img/class${hnClass}/info.png` },
+  ];
 
-  const bgEffect = new Image();
-  bgEffect.src = `${preUrl}/img/class${hnClass}/effect/bg/${level}.png`;
-
-  const hero = new Image();
-  hero.src = `${preUrl}/img/class${hnClass}/hero.png`;
-
-  const item1 = new Image();
-  item1.src = `${preUrl}/img/class${hnClass}/item1/${getRandomNumber(hnId, 'item1', 1, 10)}.png`;
-
-  const item2 = new Image();
-  item2.src = `${preUrl}/img/class${hnClass}/item2/${getRandomNumber(hnId, 'item2', 1, 10)}.png`;
-
-  const heroEffect = new Image();
-  heroEffect.src = `${preUrl}/img/class${hnClass}/effect/hero/${level}.png`;
-
-  const info = new Image();
-  info.src = `${preUrl}/img/class${hnClass}/info.png`;
-
-  context.drawImage(bg, 0, 0);
-  context.drawImage(bgEffect, 0, 0);
-  context.drawImage(hero, 0, 0);
-  context.drawImage(item1, 0, 0);
-  context.drawImage(item2, 0, 0);
-  context.drawImage(heroEffect, 0, 0);
-  context.drawImage(info, 0, 0);
+  let count = 0;
+  sources.map(obj => {
+    const img = new Image();
+    img.src = obj.url;
+    img.onload = () => {
+      obj.img = img;
+      if (++count == 7) {
+        for (let i = 0; i < sources.length; i++) {
+          context.drawImage(sources[i].img, 0, 0);
+        }
+      }
+    };
+  });
 
   return canvas.toDataURL();
 }
