@@ -29,7 +29,7 @@ export function contract() {
       HNPool: '0x8b52E8f045A728f283C745EeBe7567740c9C821d',
       HNUpgrade: '0xE9968A83fC4bA45C7a471780B00527d559E8cFA5',
       HNMarket: '0x6d1aD8a2A42F5a35Cf88D8966105aa2D9c752f13',
-      InvitePool: '0xd8DBDCA2291c2F7AE778Facb9aaBb319f0f8E2e9',
+      InvitePool: '0x8499D235ad0fa1442187Bf5d3EAe2b6a23cf798F',
     };
   }
 };
