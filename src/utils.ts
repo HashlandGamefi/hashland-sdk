@@ -56,7 +56,7 @@ export function getRandomNumber(hnId: number, slot: string, base: number, range:
   return BigNumber.from(utils.solidityKeccak256(['uint256', 'string'], [hnId, slot])).mod(range).add(base).toNumber();
 }
 
-export async function getHnImg(hnId: number, level: number, preUrl?: string): Promise<string> {
+export async function getHnImg(hnId: number, level: number): Promise<string> {
   const hnClass = getRandomNumber(hnId, 'class', 1, 4);
 
   const canvas = document.createElement('canvas');
@@ -66,13 +66,13 @@ export async function getHnImg(hnId: number, level: number, preUrl?: string): Pr
   const context = canvas.getContext('2d') as CanvasRenderingContext2D;
 
   const sources: any[] = [
-    { url: `${preUrl}/img/bg/${level}.png` },
-    { url: `${preUrl}/img/class${hnClass}/effect/bg/${level}.png` },
-    { url: `${preUrl}/img/class${hnClass}/hero.png` },
-    { url: `${preUrl}/img/class${hnClass}/item1/${getRandomNumber(hnId, 'item1', 1, 10)}.png` },
-    { url: `${preUrl}/img/class${hnClass}/item2/${getRandomNumber(hnId, 'item2', 1, 10)}.png` },
-    { url: `${preUrl}/img/class${hnClass}/effect/hero/${level}.png` },
-    { url: `${preUrl}/img/class${hnClass}/info.png` },
+    { url: `/nft/bg/${level}.png` },
+    { url: `/nft/class${hnClass}/effect/bg/${level}.png` },
+    { url: `/nft/class${hnClass}/hero.png` },
+    { url: `/nft/class${hnClass}/item1/${getRandomNumber(hnId, 'item1', 1, 10)}.png` },
+    { url: `/nft/class${hnClass}/item2/${getRandomNumber(hnId, 'item2', 1, 10)}.png` },
+    { url: `/nft/class${hnClass}/effect/hero/${level}.png` },
+    { url: `/nft/class${hnClass}/info.png` },
   ];
 
   let count = 0;
