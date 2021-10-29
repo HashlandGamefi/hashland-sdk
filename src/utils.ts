@@ -57,6 +57,8 @@ export function getRandomNumber(hnId: number, slot: string, base: number, range:
 }
 
 export async function getHnImg(hnId: number, level: number): Promise<string> {
+  const cdnUrl = '//cdn.hashland.com/nft';
+
   const hnClass = getRandomNumber(hnId, 'class', 1, 4);
 
   const canvas = document.createElement('canvas');
@@ -66,13 +68,13 @@ export async function getHnImg(hnId: number, level: number): Promise<string> {
   const context = canvas.getContext('2d') as CanvasRenderingContext2D;
 
   const sources: any[] = [
-    { url: `/nft/bg/${level}.png` },
-    { url: `/nft/class${hnClass}/effect/bg/${level}.png` },
-    { url: `/nft/class${hnClass}/hero.png` },
-    { url: `/nft/class${hnClass}/item1/${getRandomNumber(hnId, 'item1', 1, 10)}.png` },
-    { url: `/nft/class${hnClass}/item2/${getRandomNumber(hnId, 'item2', 1, 10)}.png` },
-    { url: `/nft/class${hnClass}/effect/hero/${level}.png` },
-    { url: `/nft/class${hnClass}/info.png` },
+    { url: `${cdnUrl}/bg/${level}.png` },
+    { url: `${cdnUrl}/class${hnClass}/effect/bg/${level}.png` },
+    { url: `${cdnUrl}/class${hnClass}/hero.png` },
+    { url: `${cdnUrl}/class${hnClass}/item1/${getRandomNumber(hnId, 'item1', 1, 10)}.png` },
+    { url: `${cdnUrl}/class${hnClass}/item2/${getRandomNumber(hnId, 'item2', 1, 10)}.png` },
+    { url: `${cdnUrl}/class${hnClass}/effect/hero/${level}.png` },
+    { url: `${cdnUrl}/class${hnClass}/info.png` },
   ];
 
   let count = 0;
