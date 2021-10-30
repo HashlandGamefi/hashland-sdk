@@ -81,6 +81,7 @@ export async function getHnImg(hnId: number, level: number): Promise<string> {
   return new Promise(resolve => {
     sources.map(obj => {
       obj.img = new Image();
+      obj.img.crossOrigin = 'anonymous';
       obj.img.src = obj.url;
       obj.img.onload = () => {
         if (++count == 7) {
