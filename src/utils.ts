@@ -62,8 +62,8 @@ export async function getHnImg(hnId: number, level: number): Promise<string> {
   const hnClass = getRandomNumber(hnId, 'class', 1, 4);
 
   const canvas = document.createElement('canvas');
-  canvas.width = 512;
-  canvas.height = 512;
+  canvas.width = 400;
+  canvas.height = 500;
 
   const context = canvas.getContext('2d') as CanvasRenderingContext2D;
 
