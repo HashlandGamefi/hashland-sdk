@@ -11,15 +11,18 @@ export const wallet = {
   getAccount: async () => {
     return await (window as any).ethereum.request({ method: 'eth_requestAccounts' });
   },
+
   getChainId: async () => {
     return await (window as any).ethereum.request({ method: 'eth_chainId' });
   },
+
   addChain: async () => {
     return await (window as any).ethereum.request({
       method: 'wallet_addEthereumChain',
       params: [network()]
     });
   },
+
   addHC: async (img: string) => {
     return await (window as any).ethereum.request({
       method: 'wallet_watchAsset',
@@ -34,9 +37,11 @@ export const wallet = {
       },
     });
   },
+
   onAccountChanged: (handleAccountsChanged: any) => {
     (window as any).ethereum.on('accountsChanged', handleAccountsChanged);
   },
+
   onChainChanged: (handleChainChanged: any) => {
     (window as any).ethereum.on('chainChanged', handleChainChanged);
   },
