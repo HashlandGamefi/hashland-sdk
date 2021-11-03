@@ -1,4 +1,4 @@
-import { HC__factory } from 'hashland-core/typechain'
+import { HC__factory } from 'hashland-core/typechain-types'
 import { getProvider } from '../utils';
 
 export function erc20(tokenAddr: string) {

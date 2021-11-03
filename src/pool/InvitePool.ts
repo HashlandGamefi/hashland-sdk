@@ -1,4 +1,4 @@
-import { InvitePool__factory } from 'hashland-core/typechain'
+import { InvitePool__factory } from 'hashland-core/typechain-types'
 import { getProvider } from '../utils';
 import { contract } from '../constant';
 

@@ -1,4 +1,4 @@
-import { HNMarket__factory } from 'hashland-core/typechain'
+import { HNMarket__factory } from 'hashland-core/typechain-types'
 import { getProvider } from '../utils';
 import { contract } from '../constant';
 
