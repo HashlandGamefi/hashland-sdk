@@ -7,13 +7,13 @@ const usdPerLevel = [100, 400, 1600, 6400, 25600];
 
 export const info = {
   getHNPoolApr: async (hcPrice: number, btcPrice: number) => {
-    const hcPerYear = (await hc().getPoolTokenPerBlock(contract().HNPool)).mul(28800 * 365).toNumber() / 1e18;
+    const hcPerYear = Number((await hc().getPoolTokenPerBlock(contract().HNPool)).mul(28800 * 365)) / 1e18;
     const hcValuePerYear = hcPerYear * hcPrice;
 
-    const btcPerYear = (await hnPool().tokensPerBlock(1)).mul(28800 * 365).toNumber() / 1e18;
+    const btcPerYear = Number((await hnPool().tokensPerBlock(1)).mul(28800 * 365)) / 1e18;
     const btcValuePerYear = btcPerYear * btcPrice;
 
-    const hnIdsLengthPerLevel = (await hnPool().getEachLevelHnIdsLength(maxLevel)).map(item => item.toNumber());
+    const hnIdsLengthPerLevel = (await hnPool().getEachLevelHnIdsLength(maxLevel)).map(item => Number(item));
 
     let stakeUsdValue = 0;
     for (let i = 0; i < maxLevel; i++) {
@@ -24,23 +24,23 @@ export const info = {
   },
 
   getHNPoolUserApr: async (user: string, hcPrice: number, btcPrice: number) => {
-    const stakeHc = (await hnPool().stakes(0)).toNumber();
-    const userStakeHc = (await hnPool().userStakes(user, 0)).toNumber();
+    const stakeHc = Number((await hnPool().stakes(0)));
+    const userStakeHc = Number((await hnPool().userStakes(user, 0)));
     const userShareHc = userStakeHc / stakeHc;
 
-    const stakeBtc = (await hnPool().stakes(1)).toNumber();
-    const userStakeBtc = (await hnPool().userStakes(user, 1)).toNumber();
+    const stakeBtc = Number((await hnPool().stakes(1)));
+    const userStakeBtc = Number((await hnPool().userStakes(user, 1)));
     const userShareBtc = userStakeBtc / stakeBtc;
 
-    const hcPerYear = (await hc().getPoolTokenPerBlock(contract().HNPool)).mul(28800 * 365).toNumber() / 1e18;
+    const hcPerYear = Number((await hc().getPoolTokenPerBlock(contract().HNPool)).mul(28800 * 365)) / 1e18;
     const hcValuePerYear = hcPerYear * hcPrice;
     const userHcValuePerYear = hcValuePerYear * userShareHc;
 
-    const btcPerYear = (await hnPool().tokensPerBlock(1)).mul(28800 * 365).toNumber() / 1e18;
+    const btcPerYear = Number((await hnPool().tokensPerBlock(1)).mul(28800 * 365)) / 1e18;
     const btcValuePerYear = btcPerYear * btcPrice;
     const userBtcValuePerYear = btcValuePerYear * userShareBtc;
 
-    const userHnIdsLengthPerLevel = (await hnPool().getUserEachLevelHnIdsLength(user, maxLevel)).map(item => item.toNumber());
+    const userHnIdsLengthPerLevel = (await hnPool().getUserEachLevelHnIdsLength(user, maxLevel)).map(item => Number(item));
 
     let userStakeUsdValue = 0;
     for (let i = 0; i < maxLevel; i++) {
