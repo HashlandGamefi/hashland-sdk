@@ -1,32 +1,45 @@
 import { ethers, utils, constants, BigNumber } from 'ethers';
+import WalletConnectProvider from '@walletconnect/web3-provider';
 import { token, network } from './constant';
-
-let providers: ethers.providers.JsonRpcProvider;
-let signer: ethers.providers.JsonRpcSigner;
 
 export const util = utils;
 export const constant = constants;
 
+export const rpcProvider = new ethers.providers.JsonRpcProvider(network().rpcUrls[0]);
+let web3Provider = newWeb3Provider(localStorage.getItem('isWalletConnect'));
+
+function newWeb3Provider(isWalletConnect?: string | null) {
+  if (isWalletConnect == 'true') {
+    return new ethers.providers.Web3Provider(
+      new WalletConnectProvider({
+        rpc: {
+          [network().chainId]: network().rpcUrls[0],
+        },
+      }));
+  }
+  else {
+    return new ethers.providers.Web3Provider((window as any).ethereum);
+  }
+}
+
 export const wallet = {
-  getAccount: async () => {
-    return await (window as any).ethereum.request({ method: 'eth_requestAccounts' });
+  getAccount: async (isWalletConnect?: string | null) => {
+    web3Provider = newWeb3Provider(isWalletConnect);
+    isWalletConnect ? localStorage.setItem('isWalletConnect', 'true') : localStorage.removeItem('isWalletConnect');
+    return await web3Provider.send('eth_requestAccounts', []);
   },
 
   getChainId: async () => {
-    return await (window as any).ethereum.request({ method: 'eth_chainId' });
+    return await web3Provider.send('eth_chainId', []);
   },
 
   addChain: async () => {
-    return await (window as any).ethereum.request({
-      method: 'wallet_addEthereumChain',
-      params: [network()]
-    });
+    return await web3Provider.send('wallet_addEthereumChain', [network()]);
   },
 
   addHC: async (img: string) => {
-    return await (window as any).ethereum.request({
-      method: 'wallet_watchAsset',
-      params: {
+    return await web3Provider.send('wallet_watchAsset',
+      [{
         type: 'ERC20',
         options: {
           address: token().HC,
@@ -34,27 +47,24 @@ export const wallet = {
           decimals: 18,
           image: img,
         },
-      },
-    });
+      }]);
   },
 
   onAccountChanged: (handleAccountsChanged: any) => {
-    (window as any).ethereum.on('accountsChanged', handleAccountsChanged);
+    web3Provider.on('accountsChanged', handleAccountsChanged);
   },
 
   onChainChanged: (handleChainChanged: any) => {
-    (window as any).ethereum.on('chainChanged', handleChainChanged);
+    web3Provider.on('chainChanged', handleChainChanged);
+  },
+
+  onDisconnect: (handleDisconnect: any) => {
+    web3Provider.on('disconnect', handleDisconnect);
   },
 }
 
-export function getProvider() {
-  if (!providers) providers = new ethers.providers.JsonRpcProvider(network().rpcUrls[0]);
-  return providers;
-}
-
 export function getSigner() {
-  if (!signer) signer = new ethers.providers.Web3Provider((window as any).ethereum).getSigner();
-  return signer;
+  return web3Provider.getSigner();
 }
 
 export function getRandomNumber(hnId: number, slot: string, base: number, range: number) {
