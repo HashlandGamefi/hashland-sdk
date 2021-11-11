@@ -70,3 +70,23 @@ export function getSigner() {
 export function getRandomNumber(hnId: number, slot: string, base: number, range: number) {
   return BigNumber.from(utils.solidityKeccak256(['uint256', 'string'], [hnId, slot])).mod(range).add(base).toNumber();
 }
+
+export function getHnImg(hnId: number, level: string, hashrates: number[], isOrigin?: boolean) {
+  let fontSize = 12;
+  let x1 = 145;
+  let x2 = 275;
+  let y = 39;
+
+  if (isOrigin) {
+    fontSize = 24;
+    x1 = 395;
+    x2 = 655;
+    y = 79;
+  }
+
+  const cdnUrl = `//cdn.hashland.com/nft/images/hashland-nft-${hnId}-${level}.png?image_process=`;
+  const resizeAndCrop = 'resize,w_512/crop,mid,w_410,h_512/';
+  const watermark = `watermark,text_${window.btoa((hashrates[0] / 1e4).toFixed(4)).replace(/\+/g, '-').replace(/\//g, '_').replace(/\=+$/, '')},type_enpnZnhpbmd5YW4,color_ffffff,size_${fontSize},g_nw,x_${x1},y_${y}/watermark,text_${window.btoa((hashrates[1] / 1e4).toFixed(4)).replace(/\+/g, '-').replace(/\//g, '_').replace(/\=+$/, '')},type_enpnZnhpbmd5YW4,color_ffffff,size_${fontSize},g_nw,x_${x2},y_${y}`;
+
+  return cdnUrl + (isOrigin ? '' : resizeAndCrop) + watermark;
+}
