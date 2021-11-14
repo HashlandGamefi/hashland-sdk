@@ -6,26 +6,31 @@ export const util = utils;
 export const constant = constants;
 
 export const rpcProvider = new ethers.providers.JsonRpcProvider(network().rpcUrls[0]);
-let web3Provider = newWeb3Provider(localStorage.getItem('isWalletConnect'));
+let web3Provider = newWeb3Provider(localStorage.getItem('walletType'));
 
-function newWeb3Provider(isWalletConnect?: string | null) {
-  if (isWalletConnect == 'true') {
-    return new ethers.providers.Web3Provider(
-      new WalletConnectProvider({
-        rpc: {
-          [network().chainId]: network().rpcUrls[0],
-        },
-      }));
+function newWeb3Provider(walletType: string | null) {
+  let web3Provider;
+
+  if (walletType == 'walletconnect') {
+    web3Provider = new WalletConnectProvider({
+      rpc: {
+        [network().chainId]: network().rpcUrls[0],
+      },
+    });
+  } else if (walletType == 'coin98') {
+    web3Provider = (window as any).coin98;
   }
   else {
-    return new ethers.providers.Web3Provider((window as any).ethereum);
+    web3Provider = (window as any).ethereum;
   }
+
+  return new ethers.providers.Web3Provider(web3Provider);
 }
 
 export const wallet = {
-  getAccount: async (isWalletConnect?: string | null) => {
-    web3Provider = newWeb3Provider(isWalletConnect);
-    isWalletConnect ? localStorage.setItem('isWalletConnect', 'true') : localStorage.removeItem('isWalletConnect');
+  getAccount: async (walletType: string | null) => {
+    web3Provider = newWeb3Provider(walletType);
+    localStorage.setItem('walletType', walletType ? walletType : 'metamask')
     return await web3Provider.send('eth_requestAccounts', []);
   },
 
