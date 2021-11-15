@@ -14,8 +14,7 @@ function newWeb3Provider(walletType: string | null) {
   if (walletType == 'walletconnect') {
     provider = new WalletConnectProvider({
       rpc: {
-        56: 'https://bsc-dataseed.binance.org',
-        97: 'https://data-seed-prebsc-1-s1.binance.org:8545',
+        [network().chainId]: network().rpcUrls[0],
       },
     });
   } else if (walletType == 'coin98') {
