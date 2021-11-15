@@ -31,7 +31,7 @@ export const wallet = {
   getAccount: async (walletType: string | null) => {
     web3Provider = newWeb3Provider(walletType);
     localStorage.setItem('walletType', walletType ? walletType : 'metamask')
-    return walletType == 'walletconnect' ? await web3Provider.enable() : await web3Provider.request({ method: 'eth_requestAccounts' });
+    return await web3Provider.enable();
   },
 
   getChainId: async () => {
