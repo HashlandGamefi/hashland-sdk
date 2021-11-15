@@ -24,27 +24,31 @@ function newWeb3Provider(walletType: string | null) {
     provider = (window as any).ethereum;
   }
 
-  return new ethers.providers.Web3Provider(provider);
+  return provider;
 }
 
 export const wallet = {
   getAccount: async (walletType: string | null) => {
     web3Provider = newWeb3Provider(walletType);
     localStorage.setItem('walletType', walletType ? walletType : 'metamask')
-    return await getProvider().send('eth_requestAccounts', []);
+    return await web3Provider.request({ method: 'eth_requestAccounts' });
   },
 
   getChainId: async () => {
-    return await getProvider().send('eth_chainId', []);
+    return await web3Provider.request({ method: 'eth_chainId' });
   },
 
   addChain: async () => {
-    return await getProvider().send('wallet_addEthereumChain', [network()]);
+    return await web3Provider.request({
+      method: 'wallet_addEthereumChain',
+      params: [network()]
+    });
   },
 
   addHC: async (img: string) => {
-    return await getProvider().send('wallet_watchAsset',
-      [{
+    return await web3Provider.request({
+      method: 'wallet_watchAsset',
+      params: {
         type: 'ERC20',
         options: {
           address: token().HC,
@@ -52,28 +56,25 @@ export const wallet = {
           decimals: 18,
           image: img,
         },
-      }]);
+      },
+    });
   },
 
   onAccountChanged: (handleAccountsChanged: any) => {
-    getProvider().on('accountsChanged', handleAccountsChanged);
+    web3Provider.on('accountsChanged', handleAccountsChanged);
   },
 
   onChainChanged: (handleChainChanged: any) => {
-    getProvider().on('chainChanged', handleChainChanged);
+    web3Provider.on('chainChanged', handleChainChanged);
   },
 
   onDisconnect: (handleDisconnect: any) => {
-    getProvider().on('disconnect', handleDisconnect);
+    web3Provider.on('disconnect', handleDisconnect);
   },
 }
 
-export function getProvider() {
-  return web3Provider;
-}
-
 export function getSigner() {
-  return getProvider().getSigner();
+  return new ethers.providers.Web3Provider(web3Provider).getSigner();
 }
 
 export function getRandomNumber(hnId: number, slot: string, base: number, range: number) {
