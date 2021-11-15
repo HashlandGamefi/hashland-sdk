@@ -14,13 +14,11 @@ function newWeb3Provider(walletType: string | null) {
   if (walletType == 'walletconnect') {
     provider = new WalletConnectProvider({
       rpc: {
-        [network().chainId]: network().rpcUrls[0],
+        56: 'https://bsc-dataseed.binance.org/',
+        97: 'https://data-seed-prebsc-1-s1.binance.org:8545/',
       },
     });
-  } else if (walletType == 'coin98') {
-    provider = (window as any).coin98;
-  }
-  else {
+  } else {
     provider = (window as any).ethereum;
   }
 
@@ -31,7 +29,7 @@ export const wallet = {
   getAccount: async (walletType: string | null) => {
     web3Provider = newWeb3Provider(walletType);
     localStorage.setItem('walletType', walletType ? walletType : 'metamask')
-    return await web3Provider.enable();
+    return walletType == 'walletconnect' ? await web3Provider.enable() : await web3Provider.request({ method: 'eth_requestAccounts' });
   },
 
   getChainId: async () => {
