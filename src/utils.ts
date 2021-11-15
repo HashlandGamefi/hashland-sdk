@@ -9,41 +9,41 @@ export const rpcProvider = new ethers.providers.JsonRpcProvider(network().rpcUrl
 let web3Provider = newWeb3Provider(localStorage.getItem('walletType'));
 
 function newWeb3Provider(walletType: string | null) {
-  let web3Provider;
+  let provider;
 
   if (walletType == 'walletconnect') {
-    web3Provider = new WalletConnectProvider({
+    provider = new WalletConnectProvider({
       rpc: {
         [network().chainId]: network().rpcUrls[0],
       },
     });
   } else if (walletType == 'coin98') {
-    web3Provider = (window as any).coin98;
+    provider = (window as any).coin98;
   }
   else {
-    web3Provider = (window as any).ethereum;
+    provider = (window as any).ethereum;
   }
 
-  return new ethers.providers.Web3Provider(web3Provider);
+  return new ethers.providers.Web3Provider(provider);
 }
 
 export const wallet = {
   getAccount: async (walletType: string | null) => {
     web3Provider = newWeb3Provider(walletType);
     localStorage.setItem('walletType', walletType ? walletType : 'metamask')
-    return await web3Provider.send('eth_requestAccounts', []);
+    return await getProvider().send('eth_requestAccounts', []);
   },
 
   getChainId: async () => {
-    return await web3Provider.send('eth_chainId', []);
+    return await getProvider().send('eth_chainId', []);
   },
 
   addChain: async () => {
-    return await web3Provider.send('wallet_addEthereumChain', [network()]);
+    return await getProvider().send('wallet_addEthereumChain', [network()]);
   },
 
   addHC: async (img: string) => {
-    return await web3Provider.send('wallet_watchAsset',
+    return await getProvider().send('wallet_watchAsset',
       [{
         type: 'ERC20',
         options: {
@@ -56,20 +56,24 @@ export const wallet = {
   },
 
   onAccountChanged: (handleAccountsChanged: any) => {
-    web3Provider.on('accountsChanged', handleAccountsChanged);
+    getProvider().on('accountsChanged', handleAccountsChanged);
   },
 
   onChainChanged: (handleChainChanged: any) => {
-    web3Provider.on('chainChanged', handleChainChanged);
+    getProvider().on('chainChanged', handleChainChanged);
   },
 
   onDisconnect: (handleDisconnect: any) => {
-    web3Provider.on('disconnect', handleDisconnect);
+    getProvider().on('disconnect', handleDisconnect);
   },
 }
 
+export function getProvider() {
+  return web3Provider;
+}
+
 export function getSigner() {
-  return web3Provider.getSigner();
+  return getProvider().getSigner();
 }
 
 export function getRandomNumber(hnId: number, slot: string, base: number, range: number) {
