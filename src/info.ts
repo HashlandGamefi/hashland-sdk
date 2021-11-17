@@ -3,7 +3,8 @@ import { hnPool } from './pool/HNPool';
 import { contract } from './constant';
 
 const maxLevel = 5;
-const usdPerLevel = [100, 400, 1600, 6400, 25600];
+const cardPrice = 110;
+const usdPerLevel = [cardPrice * 1, cardPrice * 4, cardPrice * 16, cardPrice * 64, cardPrice * 256];
 
 export const info = {
   getHNPoolApr: async (hcPrice: number, btcPrice: number) => {
