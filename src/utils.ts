@@ -58,6 +58,10 @@ export const wallet = {
     });
   },
 
+  disconnect: async () => {
+    return await web3Provider.disconnect();
+  },
+
   onAccountChanged: (handleAccountsChanged: any) => {
     web3Provider.on('accountsChanged', handleAccountsChanged);
   },
