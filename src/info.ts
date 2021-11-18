@@ -1,16 +1,22 @@
-import { constants } from 'ethers';
+import { constants, ethers } from 'ethers';
 import { hc } from './token/HC';
 import { hnPool } from './pool/HNPool';
 import { hnBox } from './pool/HNBox';
 import { iPancakeRouter } from './tool/IPancakeRouter';
 import { token, contract } from './constant';
+import { rpcProvider } from './utils';
 
 const maxLevel = 5;
 const costPerLevel = [1, 4, 16, 64, 256];
+const pancakeRouterAbi = [
+  'function getAmountsOut(uint amountIn, address[] memory path) external view returns (uint[] memory amounts)',
+  'function swapExactTokensForTokens(uint amountIn, uint amountOutMin, address[] calldata path, address to, uint deadline) external returns (uint[] memory amounts)',
+];
 
 export const info = {
   getHcPrice: async () => {
-    return Number((await iPancakeRouter().getAmountsOut(constants.WeiPerEther, [token().HC, token().BUSD]))[1]) / 1e18;
+    const router = new ethers.Contract(contract().PancakeRouter, pancakeRouterAbi, rpcProvider);
+    return Number((await router.getAmountsOut(constants.WeiPerEther, [token().HC, token().BUSD]))[1]) / 1e18;
   },
 
   getHNPoolApr: async (hcPrice: number, btcPrice: number) => {
