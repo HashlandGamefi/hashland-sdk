@@ -60,7 +60,7 @@ export const info = {
     const hcPerYear = Number((await hc().getPoolTokenPerBlock(contract().HCLPPool)).mul(28800 * 365)) / 1e18;
     const hcValuePerYear = hcPerYear * hcPrice;
 
-    const stakeHclp = Number((await hclpPool().stake()));
+    const stakeHclp = Number((await hclpPool().stake())) / 1e18;
     const hclpPrice = 2 * Math.sqrt(hcPrice);
     const stakeUsdValue = stakeHclp * hclpPrice;
 
