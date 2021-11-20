@@ -1,5 +1,6 @@
 import { hc } from './token/HC';
 import { hnPool } from './pool/HNPool';
+import { hclpPool } from './pool/HCLPPool';
 import { hnBox } from './pool/HNBox';
 import { contract } from './constant';
 
@@ -53,5 +54,16 @@ export const info = {
     }
 
     return (userHcValuePerYear + userBtcValuePerYear) / userStakeUsdValue * 100;
+  },
+
+  getHCLPPoolApr: async (hcPrice: number) => {
+    const hcPerYear = Number((await hc().getPoolTokenPerBlock(contract().HCLPPool)).mul(28800 * 365)) / 1e18;
+    const hcValuePerYear = hcPerYear * hcPrice;
+
+    const stakeHclp = Number((await hclpPool().stake()));
+    const hclpPrice = 2 * Math.sqrt(hcPrice);
+    const stakeUsdValue = stakeHclp * hclpPrice;
+
+    return hcValuePerYear / stakeUsdValue * 100;
   },
 }
