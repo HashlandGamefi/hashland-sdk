@@ -5,7 +5,8 @@ import { hnBox } from './pool/HNBox';
 import { contract } from './constant';
 
 const maxLevel = 5;
-const costPerLevel = [1, 4, 16, 64, 256];
+const cardCostPerLevel = [1, 4, 16, 64, 256];
+const hcCostPerLevel = [0, 4, 32, 192, 1024];
 
 export const info = {
   getHNPoolApr: async (hcPrice: number, btcPrice: number) => {
@@ -21,7 +22,7 @@ export const info = {
 
     let stakeUsdValue = 0;
     for (let i = 0; i < maxLevel; i++) {
-      stakeUsdValue += hnIdsLengthPerLevel[i] * costPerLevel[i] * cardPrice;
+      stakeUsdValue += hnIdsLengthPerLevel[i] * (cardCostPerLevel[i] * cardPrice + hcCostPerLevel[i] * hcPrice);
     }
 
     return (hcValuePerYear + btcValuePerYear) / stakeUsdValue * 100;
@@ -50,7 +51,7 @@ export const info = {
 
     let userStakeUsdValue = 0;
     for (let i = 0; i < maxLevel; i++) {
-      userStakeUsdValue += userHnIdsLengthPerLevel[i] * costPerLevel[i] * cardPrice;
+      userStakeUsdValue += userHnIdsLengthPerLevel[i] * (cardCostPerLevel[i] * cardPrice + hcCostPerLevel[i] * hcPrice);
     }
 
     return (userHcValuePerYear + userBtcValuePerYear) / userStakeUsdValue * 100;
