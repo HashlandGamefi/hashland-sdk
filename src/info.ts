@@ -28,9 +28,7 @@ export const info = {
     return (hcValuePerYear + btcValuePerYear) / stakeUsdValue * 100;
   },
 
-  getHNPoolUserApr: async (user: string, hcPrice: number, btcPrice: number) => {
-    const cardPrice = Number(await hnBox().boxTokenPrices(1)) / 1e18;
-
+  getHNPoolRoi: async (user: string, hcPrice: number, btcPrice: number) => {
     const stakeHc = Number((await hnPool().stakes(0)));
     const userStakeHc = Number((await hnPool().userStakes(user, 0)));
     const userShareHc = userStakeHc / stakeHc;
@@ -47,14 +45,7 @@ export const info = {
     const btcValuePerYear = btcPerYear * btcPrice;
     const userBtcValuePerYear = btcValuePerYear * userShareBtc;
 
-    const userHnIdsLengthPerLevel = (await hnPool().getUserEachLevelHnIdsLength(user, maxLevel)).map(item => Number(item));
-
-    let userStakeUsdValue = 0;
-    for (let i = 0; i < maxLevel; i++) {
-      userStakeUsdValue += userHnIdsLengthPerLevel[i] * (cardCostPerLevel[i] * cardPrice + hcCostPerLevel[i] * hcPrice);
-    }
-
-    return (userHcValuePerYear + userBtcValuePerYear) / userStakeUsdValue * 100;
+    return userHcValuePerYear + userBtcValuePerYear;
   },
 
   getHCLPPoolApr: async (hcPrice: number) => {
@@ -66,5 +57,17 @@ export const info = {
     const stakeUsdValue = stakeHclp * hclpPrice;
 
     return hcValuePerYear / stakeUsdValue * 100;
+  },
+
+  getHCLPPoolRoi: async (user: string, hcPrice: number) => {
+    const stakeHclp = Number((await hclpPool().stake()));
+    const userStakeHclp = Number((await hclpPool().userStake(user)));
+    const userShareHclp = userStakeHclp / stakeHclp;
+
+    const hcPerYear = Number((await hc().getPoolTokenPerBlock(contract().HCLPPool)).mul(28800 * 365)) / 1e18;
+    const hcValuePerYear = hcPerYear * hcPrice;
+    const userHcValuePerYear = hcValuePerYear * userShareHclp;
+
+    return userHcValuePerYear;
   },
 }
