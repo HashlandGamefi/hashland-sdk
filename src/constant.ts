@@ -22,6 +22,7 @@ export function contract() {
   if (process.env.NODE_ENV === 'production') {
     return {
       HNBox: '0x60c5715248c4bB3035F086A09E2BB5A7d0155751',
+      HNBlindBox: '0x00',
       HNUpgrade: '0xd54A485b8149ba70B48cE013479E02F05D38B428',
       HNMarket: '0x3110f63D4f20F94DBd3543B26eE355021Af20739',
       HNPool: '0x28b45001dB087afcbeC20f5dD6C041Cf46b40AC3',
@@ -32,6 +33,7 @@ export function contract() {
   } else {
     return {
       HNBox: '0x84fB1b4FC574F5dC5161e0CecaD412501A7Bb968',
+      HNBlindBox: '0x00',
       HNUpgrade: '0x25ec013DB55B780A4d41e987aBB869320bb72E66',
       HNMarket: '0xcc5F082C29da48c658E4D9E0CB9dA1a55f498b04',
       HNPool: '0x4D9a65d55029aE12ef0A3CAfb04CB94af60daa17',
