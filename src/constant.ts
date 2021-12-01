@@ -33,7 +33,7 @@ export function contract() {
   } else {
     return {
       HNBox: '0x84fB1b4FC574F5dC5161e0CecaD412501A7Bb968',
-      HNBlindBox: '0xB67B868A35e085417C8FE506B78FA39E484ef95f',
+      HNBlindBox: '0xd53117c3BAEA8DEB52dF855062297ff52Deb0d2f',
       HNUpgrade: '0x25ec013DB55B780A4d41e987aBB869320bb72E66',
       HNMarket: '0xcc5F082C29da48c658E4D9E0CB9dA1a55f498b04',
       HNPool: '0x4D9a65d55029aE12ef0A3CAfb04CB94af60daa17',
