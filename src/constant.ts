@@ -40,7 +40,7 @@ export function contract() {
       HNPool: '0x4D9a65d55029aE12ef0A3CAfb04CB94af60daa17',
       HCLPPool: '0xa63Aa895E4104ef6834991922391F54986cd0A50',
       InvitePool: '0xAfbFc2b71c2b93D6C56DEd055Ea81e3187922E1D',
-      HWDeposit: '0x00',
+      HWDeposit: '0x18fdd9d1c4a5B32987B8ED6b5e121Af27E256468',
       PancakeRouter: '0x9Ac64Cc6e4415144C455BD8E4837Fea55603e5c3',
     };
   }
