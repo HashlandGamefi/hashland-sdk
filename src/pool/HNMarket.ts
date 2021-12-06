@@ -14,10 +14,10 @@ export function hnMarket() {
 
 export const hnMarketInfo = {
   getSellInfo: async (
-    first?: number,
-    skip?: number,
-    orderBy?: string,
-    orderDirection?: string,
+    first: number,
+    skip: number,
+    orderBy: string,
+    orderDirection: string,
     level?: number,
     hnClass?: number,
     seller?: string,
