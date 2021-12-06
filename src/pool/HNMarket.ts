@@ -26,7 +26,7 @@ export const hnMarketInfo = {
       query($first: Int, $skip: Int, $orderBy: BigInt, $orderDirection: String, $level: BigInt, $hnClass: BigInt, $seller: String) {
         sellInfos(
           first: $first, skip: $skip, orderBy: $orderBy, orderDirection: $orderDirection,
-          where: {level: $level, hnClass: $hnClass, seller: $seller}
+          where: {${level ? `level: $level,` : ``} ${hnClass ? `hnClass: $hnClass,` : ``} ${seller ? `seller: $seller,` : ``}}
         ) {
           hnId
           seller
