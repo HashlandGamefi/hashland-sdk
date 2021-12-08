@@ -37,7 +37,7 @@ export const hnMarketInfo = {
           feeAmout
           buyAmout
           isInPool
-          sellTime
+          buyTime
           ip
           series
           level
