@@ -13,6 +13,57 @@ export function hnMarket() {
 }
 
 export const hnMarketInfo = {
+  getBuyInfo: async (
+    first: number,
+    skip: number,
+    orderBy: string,
+    orderDirection: string,
+    level?: number,
+    hnClass?: number,
+    seller?: string,
+    buyer?: string,
+  ) => {
+    const buyInfoQuery = `
+      query($first: Int, $skip: Int, $orderBy: BigInt, $orderDirection: String, $level: BigInt, $hnClass: BigInt, $seller: String, $buyer: String) {
+        buyInfos(
+          first: $first, skip: $skip, orderBy: $orderBy, orderDirection: $orderDirection,
+          where: {${level ? `level: $level,` : ``} ${hnClass ? `hnClass: $hnClass,` : ``} ${seller ? `seller: $seller,` : ``} ${buyer ? `buyer: $buyer,` : ``}}
+        ) {
+          hnId
+          buyer
+          seller
+          price
+          feeRatio
+          feeAmout
+          buyAmout
+          isInPool
+          sellTime
+          ip
+          series
+          level
+          hnClass
+          spawntime
+          hcHashrate
+          btcHashrate
+        }
+      }
+    `;
+
+    return await client.query({
+      query: gql(buyInfoQuery),
+      variables: {
+        first: first,
+        skip: skip,
+        orderBy: orderBy,
+        orderDirection: orderDirection,
+        level: level,
+        hnClass: hnClass,
+        seller: seller,
+        buyer: buyer,
+      },
+    });
+  },
+
   getSellInfo: async (
     first: number,
     skip: number,
