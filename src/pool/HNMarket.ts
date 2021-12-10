@@ -35,7 +35,7 @@ export const hnMarketInfo = {
           price
           feeRatio
           feeAmout
-          buyAmout
+          sellAmout
           isInPool
           buyTime
           ip
