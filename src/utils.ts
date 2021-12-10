@@ -58,6 +58,21 @@ export const wallet = {
     });
   },
 
+  addBTC: async (img: string) => {
+    return await web3Provider.request({
+      method: 'wallet_watchAsset',
+      params: {
+        type: 'ERC20',
+        options: {
+          address: token().BTC,
+          symbol: 'BTCB',
+          decimals: 18,
+          image: img,
+        },
+      },
+    });
+  },
+
   disconnect: async () => {
     return await web3Provider.disconnect();
   },
