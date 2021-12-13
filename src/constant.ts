@@ -31,6 +31,7 @@ export function contract() {
       HWDeposit: '0xe272cA8C91ac42FF20fA0024842707BC3651f54D',
       HWPvEPool: '0x00',
       HWPvPPool: '0x00',
+      HWWEPool: '0x00',
       PancakeRouter: '0x10ED43C718714eb63d5aA57B78B54704E256024E',
     };
   } else {
@@ -45,6 +46,7 @@ export function contract() {
       HWDeposit: '0x18fdd9d1c4a5B32987B8ED6b5e121Af27E256468',
       HWPvEPool: '0x00',
       HWPvPPool: '0x00',
+      HWWEPool: '0x00',
       PancakeRouter: '0x9Ac64Cc6e4415144C455BD8E4837Fea55603e5c3',
     };
   }
