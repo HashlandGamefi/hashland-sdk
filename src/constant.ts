@@ -29,9 +29,9 @@ export function contract() {
       HCLPPool: '0x0AE7A7330f19c2A1dEaBbACce8dE6bD6c22De313',
       InvitePool: '0x32fed795451F94bfFA8dB54a346F4Ec1EE0dF83E',
       HWDeposit: '0xe272cA8C91ac42FF20fA0024842707BC3651f54D',
-      HWPvEPool: '0x00',
-      HWPvPPool: '0x00',
-      HWWEPool: '0x00',
+      HWPvEPool: '0x0807061FcFd626a63404bF5f3852efA03F9E175E',
+      HWPvPPool: '0x3b633B4E182f8b0C23a630E8aa729422E385e44C',
+      HWWEPool: '0xBccC75d00E0Dc753f6276B29a37eEa38Dc702B45',
       PancakeRouter: '0x10ED43C718714eb63d5aA57B78B54704E256024E',
     };
   } else {
