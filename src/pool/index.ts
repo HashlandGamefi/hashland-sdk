@@ -5,3 +5,6 @@ export * from './HNMarket';
 export * from './HNPool';
 export * from './HCLPPool';
 export * from './InvitePool';
+export * from './HWPvEPool';
+export * from './HWPvPPool';
+export * from './HWWEPool';
