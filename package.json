@@ -20,6 +20,7 @@
   "homepage": "https://github.com/HashlandGamefi/hashland-sdk#readme",
   "dependencies": {
     "@apollo/client": "^3.5.5",
+    "@snapshot-labs/snapshot.js": "^0.3.24",
     "@walletconnect/web3-provider": "^1.6.6",
     "ethers": "^5.5.1",
     "graphql": "^16.0.1",
