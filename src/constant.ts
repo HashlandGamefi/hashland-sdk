@@ -1,5 +1,6 @@
-export function token() {
-  if (process.env.NODE_ENV === 'production') {
+export function token(env?: string) {
+  const environment = env || process.env.NODE_ENV;
+  if (environment === 'production') {
     return {
       HC: '0xA6e78aD3c9B4a79A01366D01ec4016EB3075d7A0',
       HN: '0xEEa8bD31DA9A2169C38968958B6DF216381B0f08',
@@ -18,8 +19,9 @@ export function token() {
   }
 };
 
-export function contract() {
-  if (process.env.NODE_ENV === 'production') {
+export function contract(env?: string) {
+  const environment = env || process.env.NODE_ENV;
+  if (environment === 'production') {
     return {
       HNBox: '0x60c5715248c4bB3035F086A09E2BB5A7d0155751',
       HNBlindBox: '0xc20187179817ebbD0f1065AF6cF2c5E859583a46',
@@ -52,8 +54,9 @@ export function contract() {
   }
 };
 
-export function network() {
-  if (process.env.NODE_ENV === 'production') {
+export function network(env?: string) {
+  const environment = env || process.env.NODE_ENV;
+  if (environment === 'production') {
     return {
       chainId: '0x38',
       chainName: 'BSC-Mainnet',
