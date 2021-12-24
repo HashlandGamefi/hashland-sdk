@@ -1,6 +1,5 @@
 import { ethers, utils, constants, BigNumber } from 'ethers';
 import WalletConnectProvider from '@walletconnect/web3-provider';
-import snapshot from '@snapshot-labs/snapshot.js';
 import { token, network } from './constant';
 
 export const util = utils;
@@ -8,9 +7,6 @@ export const constant = constants;
 
 export const rpcProvider = new ethers.providers.JsonRpcProvider(network().rpcUrls[0]);
 let web3Provider = newWeb3Provider(localStorage.getItem('walletType'));
-
-const hub = 'https://hub.snapshot.org';
-const client = new snapshot.Client712(hub);
 
 function newWeb3Provider(walletType: string | null) {
   let provider;
@@ -91,44 +87,6 @@ export const wallet = {
 
   onDisconnect: (handleDisconnect: any) => {
     web3Provider.on('disconnect', handleDisconnect);
-  },
-}
-
-export const vote = {
-  castVote: async (account: string, proposal: string, choice: number) => {
-    return await client.vote(getProvider(), account, {
-      space: 'hashland.eth',
-      proposal: proposal,
-      type: 'single-choice',
-      choice: choice,
-      metadata: JSON.stringify({})
-    });
-  },
-
-  createProposal: async (account: string, title: string, body: string, choices: string[], start: number, end: number) => {
-    return await client.proposal(getProvider(), account, {
-      space: 'hashland.eth',
-      type: 'single-choice',
-      title: title,
-      body: body,
-      choices: choices,
-      start: start,
-      end: end,
-      snapshot: await getProvider().getBlockNumber(),
-      network: '1',
-      strategies: JSON.stringify([
-        {
-          name: 'erc20-balance-of',
-          params: {
-            address: token().HC,
-            symbol: 'HC',
-            decimals: 18
-          }
-        }
-      ]),
-      plugins: JSON.stringify({}),
-      metadata: JSON.stringify({ app: 'snapshot.js' })
-    });
   },
 }
 
