@@ -45,12 +45,13 @@ export const vote = {
     orderDirection: string,
     state?: string,
     author?: string,
+    author_not?: string,
   ) => {
     const proposalsQuery = `
-      query($first: Int, $skip: Int, $orderBy: BigInt, $orderDirection: String, $state: String, $author: String) {
+      query($first: Int, $skip: Int, $orderBy: BigInt, $orderDirection: String, $state: String, $author: String, $author_not: String) {
         proposals(
           first: $first, skip: $skip, orderBy: $orderBy, orderDirection: $orderDirection,
-          where: {space_in: ["hashland.eth"], ${state ? `state: $state,` : ``} ${author ? `author: $author,` : ``}}
+          where: {space_in: ["hashland.eth"], ${state ? `state: $state,` : ``} ${author ? `author: $author,` : ``} ${author_not ? `author_not: $author_not,` : ``}}
         ) {
           id  
           ipfs  
@@ -92,6 +93,7 @@ export const vote = {
         orderDirection: orderDirection,
         state: state,
         author: author,
+        author_not: author_not,
       },
     });
   },
