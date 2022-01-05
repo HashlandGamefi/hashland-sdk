@@ -102,23 +102,26 @@ export function getRandomNumber(hnId: number, slot: string, base: number, range:
   return BigNumber.from(utils.solidityKeccak256(['uint256', 'string'], [hnId, slot])).mod(range).add(base).toNumber();
 }
 
-export function getHnImg(hnId: number, level: string, hashrates: number[], isOrigin?: boolean) {
+export function getHnImg(hnId: number, level: string, hashrates: number[], ultra?: boolean, isOrigin?: boolean) {
   let fontSize = 12;
   let x1 = 145;
   let x2 = 275;
   let y = 39;
+  let ultraLogoUrl = 'https://cdn.hashland.com/nft/logo/ultra_512.png';
 
   if (isOrigin) {
     fontSize = 24;
     x1 = 395;
     x2 = 655;
     y = 79;
+    ultraLogoUrl = 'https://cdn.hashland.com/nft/logo/ultra_1024.png';
   }
 
   const cdnUrl = `//cdn.hashland.com/nft/images/hashland-nft-${hnId}-${level}.png?image_process=`;
-  const resizeAndCrop = 'resize,w_512/crop,mid,w_410,h_512/';
-  const watermark1 = `watermark,text_${window.btoa((hashrates[0] / 1e4).toFixed(4)).replace(/\+/g, '-').replace(/\//g, '_').replace(/\=+$/, '')},type_enpnZnhpbmd5YW4,color_ffffff,size_${fontSize},g_nw,x_${x1},y_${y}`;
-  const watermark2 = `/watermark,text_${window.btoa((hashrates[1] / 1e4).toFixed(4)).replace(/\+/g, '-').replace(/\//g, '_').replace(/\=+$/, '')},type_enpnZnhpbmd5YW4,color_ffffff,size_${fontSize},g_nw,x_${x2},y_${y}`;
+  const resizeAndCrop = isOrigin ? '' : 'resize,w_512/crop,mid,w_410,h_512/';
+  const hcHashrate = `watermark,text_${window.btoa((hashrates[0] / 1e4).toFixed(4)).replace(/\+/g, '-').replace(/\//g, '_').replace(/\=+$/, '')},type_enpnZnhpbmd5YW4,color_ffffff,size_${fontSize},g_nw,x_${x1},y_${y}`;
+  const btcHashrate = hashrates[1] ? `/watermark,text_${window.btoa((hashrates[1] / 1e4).toFixed(4)).replace(/\+/g, '-').replace(/\//g, '_').replace(/\=+$/, '')},type_enpnZnhpbmd5YW4,color_ffffff,size_${fontSize},g_nw,x_${x2},y_${y}` : ``;
+  const ultraLogo = ultra ? `/watermark,image_${window.btoa(ultraLogoUrl).replace(/\+/g, '-').replace(/\//g, '_').replace(/\=+$/, '')},g_center` : ``;
 
-  return cdnUrl + (isOrigin ? '' : resizeAndCrop) + watermark1 + hashrates[1] ? watermark2 : ``;
+  return cdnUrl + resizeAndCrop + hcHashrate + btcHashrate + ultraLogo;
 }
