@@ -22,12 +22,14 @@ export const hnMarketInfo = {
     hnClass?: number,
     seller?: string,
     buyer?: string,
+    series?: number,
+    ultra?: boolean,
   ) => {
     const buyInfoQuery = `
-      query($first: Int, $skip: Int, $orderBy: BigInt, $orderDirection: String, $level: BigInt, $hnClass: BigInt, $seller: String, $buyer: String) {
+      query($first: Int, $skip: Int, $orderBy: BigInt, $orderDirection: String, $level: BigInt, $hnClass: BigInt, $seller: String, $buyer: String, $series: BigInt, $ultra: Boolean) {
         buyInfos(
           first: $first, skip: $skip, orderBy: $orderBy, orderDirection: $orderDirection,
-          where: {${level ? `level: $level,` : ``} ${hnClass ? `hnClass: $hnClass,` : ``} ${seller ? `seller: $seller,` : ``} ${buyer ? `buyer: $buyer,` : ``}}
+          where: {${level ? `level: $level,` : ``} ${hnClass ? `hnClass: $hnClass,` : ``} ${seller ? `seller: $seller,` : ``} ${buyer ? `buyer: $buyer,` : ``} ${series ? `series: $series,` : ``} ${ultra ? `ultra: $ultra,` : ``}}
         ) {
           hnId
           buyer
@@ -45,6 +47,7 @@ export const hnMarketInfo = {
           spawntime
           hcHashrate
           btcHashrate
+          ultra
         }
       }
     `;
@@ -60,6 +63,8 @@ export const hnMarketInfo = {
         hnClass: hnClass,
         seller: seller,
         buyer: buyer,
+        series: series,
+        ultra: ultra,
       },
     });
   },
@@ -72,12 +77,14 @@ export const hnMarketInfo = {
     level?: number,
     hnClass?: number,
     seller?: string,
+    series?: number,
+    ultra?: boolean,
   ) => {
     const sellInfoQuery = `
-      query($first: Int, $skip: Int, $orderBy: BigInt, $orderDirection: String, $level: BigInt, $hnClass: BigInt, $seller: String) {
+      query($first: Int, $skip: Int, $orderBy: BigInt, $orderDirection: String, $level: BigInt, $hnClass: BigInt, $seller: String, $series: BigInt, $ultra: Boolean) {
         sellInfos(
           first: $first, skip: $skip, orderBy: $orderBy, orderDirection: $orderDirection,
-          where: {${level ? `level: $level,` : ``} ${hnClass ? `hnClass: $hnClass,` : ``} ${seller ? `seller: $seller,` : ``}}
+          where: {${level ? `level: $level,` : ``} ${hnClass ? `hnClass: $hnClass,` : ``} ${seller ? `seller: $seller,` : ``} ${series ? `series: $series,` : ``} ${ultra ? `ultra: $ultra,` : ``}}
         ) {
           hnId
           seller
@@ -91,6 +98,7 @@ export const hnMarketInfo = {
           spawntime
           hcHashrate
           btcHashrate
+          ultra
         }
       }
     `;
@@ -105,6 +113,8 @@ export const hnMarketInfo = {
         level: level,
         hnClass: hnClass,
         seller: seller,
+        series: series,
+        ultra: ultra,
       },
     });
   },
