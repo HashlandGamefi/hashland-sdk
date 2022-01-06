@@ -120,7 +120,7 @@ export function getHnImg(hnId: number, level: string, hashrates: number[], ultra
   const cdnUrl = `//cdn.hashland.com/nft/images/hashland-nft-${hnId}-${level}.png?image_process=`;
   const resizeAndCrop = isOrigin ? '' : 'resize,w_512/crop,mid,w_410,h_512/';
   const hcHashrate = `watermark,text_${window.btoa((hashrates[0] / 1e4).toFixed(4)).replace(/\+/g, '-').replace(/\//g, '_').replace(/\=+$/, '')},type_enpnZnhpbmd5YW4,color_ffffff,size_${fontSize},g_nw,x_${x1},y_${y}`;
-  const btcHashrate = hashrates[1] ? `/watermark,text_${window.btoa((hashrates[1] / 1e4).toFixed(4)).replace(/\+/g, '-').replace(/\//g, '_').replace(/\=+$/, '')},type_enpnZnhpbmd5YW4,color_ffffff,size_${fontSize},g_nw,x_${x2},y_${y}` : ``;
+  const btcHashrate = hashrates[1] > 0 ? `/watermark,text_${window.btoa((hashrates[1] / 1e4).toFixed(4)).replace(/\+/g, '-').replace(/\//g, '_').replace(/\=+$/, '')},type_enpnZnhpbmd5YW4,color_ffffff,size_${fontSize},g_nw,x_${x2},y_${y}` : ``;
   const ultraLogo = ultra ? `/watermark,image_${window.btoa(ultraLogoUrl).replace(/\+/g, '-').replace(/\//g, '_').replace(/\=+$/, '')},g_center` : ``;
 
   return cdnUrl + resizeAndCrop + hcHashrate + btcHashrate + ultraLogo;
