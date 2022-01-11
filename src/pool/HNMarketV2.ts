@@ -12,7 +12,7 @@ export function hnMarketV2() {
   return HNMarketV2__factory.connect(contract().HNMarketV2, rpcProvider);
 }
 
-export const hnMarketInfo = {
+export const hnMarketInfoV2 = {
   getBuyInfo: async (
     first: number,
     skip: number,
