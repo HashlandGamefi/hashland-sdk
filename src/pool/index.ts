@@ -4,6 +4,7 @@ export * from './HNBlindBoxS2';
 export * from './HNUpgrade';
 export * from './HNUpgradeV2';
 export * from './HNMarket';
+export * from './HNMarketV2';
 export * from './HNPool';
 export * from './HCLPPool';
 export * from './InvitePool';
