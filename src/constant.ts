@@ -29,7 +29,7 @@ export function contract(env?: string) {
       HNUpgrade: '0xd54A485b8149ba70B48cE013479E02F05D38B428',
       HNUpgradeV2: '0x00',
       HNMarket: '0x3110f63D4f20F94DBd3543B26eE355021Af20739',
-      HNMarketV2: '0x00',
+      HNMarketV2: '0x83291fB61176fDa3200cc0d4ae50cb4f74d3f9ca',
       HNPool: '0x28b45001dB087afcbeC20f5dD6C041Cf46b40AC3',
       HCLPPool: '0x0AE7A7330f19c2A1dEaBbACce8dE6bD6c22De313',
       InvitePool: '0x9FA50C14CafF0925069e64Fb7915AAE44e352332',
