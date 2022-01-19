@@ -29,7 +29,7 @@ export const hnMarketInfo = {
       query($first: Int, $skip: Int, $orderBy: BigInt, $orderDirection: String, $level: BigInt, $hnClass: BigInt, $seller: String, $buyer: String, $series: BigInt, $ultra: Boolean) {
         buyInfos(
           first: $first, skip: $skip, orderBy: $orderBy, orderDirection: $orderDirection,
-          where: {${level ? `level: $level,` : ``} ${hnClass ? `hnClass: $hnClass,` : ``} ${seller ? `seller: $seller,` : ``} ${buyer ? `buyer: $buyer,` : ``} ${series ? `series: $series,` : ``} ${ultra ? `ultra: $ultra,` : ``}}
+          where: {${level ? `level: $level,` : ``} ${hnClass ? `hnClass: $hnClass,` : ``} ${seller ? `seller: $seller,` : ``} ${buyer ? `buyer: $buyer,` : ``} ${series ? `series: $series,` : ``} ${ultra != null ? `ultra: $ultra,` : ``}}
         ) {
           hnId
           buyer
@@ -84,7 +84,7 @@ export const hnMarketInfo = {
       query($first: Int, $skip: Int, $orderBy: BigInt, $orderDirection: String, $level: BigInt, $hnClass: BigInt, $seller: String, $series: BigInt, $ultra: Boolean) {
         sellInfos(
           first: $first, skip: $skip, orderBy: $orderBy, orderDirection: $orderDirection,
-          where: {${level ? `level: $level,` : ``} ${hnClass ? `hnClass: $hnClass,` : ``} ${seller ? `seller: $seller,` : ``} ${series ? `series: $series,` : ``} ${ultra ? `ultra: $ultra,` : ``}}
+          where: {${level ? `level: $level,` : ``} ${hnClass ? `hnClass: $hnClass,` : ``} ${seller ? `seller: $seller,` : ``} ${series ? `series: $series,` : ``} ${ultra != null ? `ultra: $ultra,` : ``}}
         ) {
           hnId
           seller
